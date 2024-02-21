@@ -1,0 +1,114 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: BoundedContext655
+  labels:
+    app: BoundedContext655
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: BoundedContext655
+  template:
+    metadata:
+      labels:
+        app: BoundedContext655
+    spec:
+      containers:
+        - name: BoundedContext655
+          image: username/BoundedContext655:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: BoundedContext1203
+  labels:
+    app: BoundedContext1203
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: BoundedContext1203
+  template:
+    metadata:
+      labels:
+        app: BoundedContext1203
+    spec:
+      containers:
+        - name: BoundedContext1203
+          image: username/BoundedContext1203:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: BoundedContext655
+  labels:
+    app: BoundedContext655
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: BoundedContext655
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: BoundedContext1203
+  labels:
+    app: BoundedContext1203
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: BoundedContext1203
+
